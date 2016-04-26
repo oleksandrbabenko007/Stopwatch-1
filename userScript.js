@@ -1,37 +1,47 @@
 "use strict";
-var stopwatch = $(".wrapper").find(".stopwatch"); 
-var lapsText = $(".wrapper").find(".laps");
-var btnStartStop = $(".wrapper").find(".start_stop_btn");
-var btnClear = $(".wrapper").find(".clear_btn");
-var btnLaps = $(".wrapper").find(".laps_btn");
+
+$(document).ready(function() {
+    initStopwatch();
+});
+
+var stopwatch;
+var lapsText;
+var btnStartStop;
+var btnClear;
+var btnLaps;
 var timeInterval = 0;
 var countLaps = 0;
 var firstStartTime = 0;
 var pauseTime = 0;
 
-btnClear.on("click",function(){
-    clearStopwatch();
-});
+function initStopwatch() {
+    stopwatch = $(".wrapper").find(".stopwatch");
+    lapsText = $(".wrapper").find(".laps");
+    btnStartStop = $(".wrapper").find(".start_stop_btn");
+    btnClear = $(".wrapper").find(".clear_btn");
+    btnLaps = $(".wrapper").find(".laps_btn");
 
-btnStartStop.on("click",function(){
-    if(stopwatch.hasClass("notactive")){
-        startStopwatch();
-    }
-    else {
-        stopStopwatch();
-    }
-});
+    btnClear.on("click", function() {
+        clearStopwatch();
+    });
 
-btnLaps.on("click", function(){
-    createLap();
-});
+    btnStartStop.on("click", function() {
+        if (stopwatch.hasClass("notactive")) {
+            startStopwatch();
+        } else {
+            stopStopwatch();
+        }
+    });
+
+    btnLaps.on("click", function() {
+        createLap();
+    });
+}
 
 function startStopwatch() {
-
     clearInterval(timeInterval);
 
     firstStartTime = new Date().getTime();
-
     timeInterval = setInterval(function() {
         var newTime = (new Date().getTime() - firstStartTime + pauseTime);
         stopwatch.text(formatTimeToString(newTime));
@@ -41,28 +51,25 @@ function startStopwatch() {
     stopwatch.removeClass("notactive");
 }
 
-function stopStopwatch(){
-
+function stopStopwatch() {
     clearInterval(timeInterval);
 
-    if(firstStartTime > 0){
-
-        pauseTime = pauseTime + new Date().getTime() - firstStartTime;       
+    if (firstStartTime > 0) {
+        pauseTime = pauseTime + new Date().getTime() - firstStartTime;
         firstStartTime = 0;
     }
-    
-    btnStartStop.attr("value","Start");
+
+    btnStartStop.attr("value", "Start");
     stopwatch.addClass("notactive");
 }
 
-function createLap(){
-    if(!stopwatch.hasClass("notactive")) {
+function createLap() {
+    if (!stopwatch.hasClass("notactive")) {
         lapsText.append("Lap #" + (++countLaps) + ":  " + stopwatch.text() + '<br/>');
     }
 }
 
-function clearStopwatch(){
-
+function clearStopwatch() {
     clearInterval(timeInterval);
     btnStartStop.text("Start");
     stopwatch.addClass('notactive');
@@ -74,13 +81,13 @@ function clearStopwatch(){
     countLaps = 0;
 }
 
-function formatTimeToString(time){
+function formatTimeToString(time) {
     var hours, minutes, seconds, milliseconds;
-    
-    milliseconds = Math.floor((time % 1000)/100);
-    seconds = Math.floor((time/1000) % 60);
-    minutes = Math.floor((time/(1000*60)) % 60);
-    hours = Math.floor(time/(1000*60*60) % 24);
+
+    milliseconds = Math.floor((time % 1000) / 100);
+    seconds = Math.floor((time / 1000) % 60);
+    minutes = Math.floor((time / (1000 * 60)) % 60);
+    hours = Math.floor(time / (1000 * 60 * 60) % 24);
 
     seconds = seconds < 10 ? '0' + seconds : seconds;
     minutes = minutes < 10 ? '0' + minutes : minutes;
@@ -88,4 +95,3 @@ function formatTimeToString(time){
 
     return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
 }
-
