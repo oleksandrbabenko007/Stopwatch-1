@@ -1,7 +1,8 @@
 "use strict";
 
 $(document).ready(function() {
-    initStopwatch();
+    initStopwatch(".stopwatch1");
+    initStopwatch(".stopwatch2");
 });
 
 var stopwatch;
@@ -14,12 +15,12 @@ var countLaps = 0;
 var firstStartTime = 0;
 var pauseTime = 0;
 
-function initStopwatch() {
-    stopwatch = $(".wrapper").find(".stopwatch");
-    lapsText = $(".wrapper").find(".laps");
-    btnStartStop = $(".wrapper").find(".start_stop_btn");
-    btnClear = $(".wrapper").find(".clear_btn");
-    btnLaps = $(".wrapper").find(".laps_btn");
+function initStopwatch(wrap_name) {
+    stopwatch = $(wrap_name).find(".stopwatch");
+    lapsText = $(wrap_name).find(".laps");
+    btnStartStop = $(wrap_name).find(".start_stop_btn");
+    btnClear = $(wrap_name).find(".clear_btn");
+    btnLaps = $(wrap_name).find(".laps_btn");
 
     btnClear.on("click", function() {
         clearStopwatch();

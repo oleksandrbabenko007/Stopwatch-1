@@ -7,9 +7,23 @@
 </head>
 <body>
 	
-	<div class="wrapper">
+	<div class="wrapper stopwatch1">
 
-		<div class="stopwatch notactive">00:00:00.0</div>		
+		<div class="stopwatch notactive">00:00:00.0</div>
+		
+		<form name="stopwatchForm" class="stopwatchForm">
+			<input type="button" class="start_stop_btn" value="Start">
+			<input type="button" class="clear_btn" value="Clear"> 
+			<input type="button" class="laps_btn" value="Lap">
+		</form>
+		
+		<div class="laps"></div>
+
+	</div>
+	<br> <br>
+	<div class="wrapper stopwatch2">
+
+		<div class="stopwatch notactive">00:00:00.0</div>
 		
 		<form name="stopwatchForm" class="stopwatchForm">
 			<input type="button" class="start_stop_btn" value="Start">
